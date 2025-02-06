@@ -15,8 +15,10 @@ A real-time messaging application built using the MERN (MongoDB, Express.js, Rea
 
 ### Frontend:
 - React.js
-- Tailwind CSS
 - Axios
+- Redux
+- Socket IO client
+- JWT
 
 ### Backend:
 - Node.js
