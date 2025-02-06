@@ -25,74 +25,41 @@ A real-time messaging application built using the MERN (MongoDB, Express.js, Rea
 - Socket.IO (for real-time messaging)
 - JWT (for authentication)
 
-## Installation
+---------- Setup Frontend with Rect App -------------
 
-### Prerequisites
-Ensure you have the following installed:
-- Node.js & npm
-- MongoDB (local or cloud-based, e.g., MongoDB Atlas)
+1. npm i axios 
+2. npm i jwt-decode 
+3. npm i moment 
+4. npm i sass 
+5. npm i react-hot-toast
+6. npm i react-icons 
+7. npm i react-alert 
+8. npm i react-alert-template-basic
+9. npm i react-redux
+10. npm i redux
+11. npm redux-thunk
+12. npm i react-router-dom 
+13. npm i socket.io-client
+ 
 
-### Steps to Run Locally
+npm install axios moment jwt-decode sass react-alert react-alert-template-basic react-hot-toast react icons react-redux redux redux-thunk react-router-dom socket.io-client --legacy-peer-deps
 
-1. **Clone the repository**
-   ```sh
-   git clone https://github.com/your-username/messaging-app.git
-   cd messaging-app
-   ```
 
-2. **Install dependencies**
-   ```sh
-   # Install frontend dependencies
-   cd client
-   npm install
-   ```
-   ```sh
-   # Install backend dependencies
-   cd ../server
-   npm install
-   ```
+---------- Setup Backend Node Express -------------
 
-3. **Set up environment variables**
-   - Create a `.env` file in the `server` directory and add the following:
-   ```env
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_secret_key
-   ```
+1. npm init --y
+2. npm i bcrypt
+3. npm i body-parser
+4. npm i concurrently
+5. npm i cookie-parser
+6. npm i dotenv
+7. npm i express
+8. npm i formidable
+9. npm i jsonwebtoken
+10. npm i mongoose
+11. npm nodemon
+12. npm i validator 
 
-4. **Run the backend**
-   ```sh
-   cd server
-   npm start
-   ```
+npm i bcrypt body-parser concurrently cookie-parser dotenv express formidable jsonwebtoken mongoose nodemon validator 
 
-5. **Run the frontend**
-   ```sh
-   cd client
-   npm start
-   ```
-
-6. **Open in your browser**
-   - Visit `http://localhost:3000`
-
-## API Endpoints
-
-### Auth Routes
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Authenticate user and return a token
-
-### Message Routes
-- `GET /api/messages/:chatId` - Fetch messages from a conversation
-- `POST /api/messages/send` - Send a new message
-
-### User Routes
-- `GET /api/users` - Get a list of users
-- `GET /api/users/:id` - Get user details
-
-## Future Improvements
-- Implement push notifications
-- Add media (images, videos) support in messages
-- Improve UI with animations
-
-## License
-This project is licensed under the MIT License.
 
