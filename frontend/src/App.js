@@ -12,7 +12,7 @@ function App() {
         <Route path="/messenger/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
-  );
+  );    
 }
 
 export default App;

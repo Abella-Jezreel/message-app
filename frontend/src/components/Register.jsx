@@ -1,7 +1,32 @@
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/userReducer";
 
 const Register = () => {
+  const [user, setUserState] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    image: "",
+  });
+
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserState({
+      ...user,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setUser(user));
+  };
+
   return (
     <div className="register">
       <div className="card">
@@ -10,7 +35,7 @@ const Register = () => {
         </div>
 
         <div className="card-body">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">User Name</label>
               <input
@@ -18,6 +43,9 @@ const Register = () => {
                 className="form-control"
                 placeholder="User Name"
                 id="username"
+                name="username"
+                value={user.username}
+                onChange={handleChange}
               />
             </div>
 
@@ -28,6 +56,9 @@ const Register = () => {
                 className="form-control"
                 placeholder="Email"
                 id="email"
+                name="email"
+                value={user.email}
+                onChange={handleChange}
               />
             </div>
 
@@ -38,6 +69,9 @@ const Register = () => {
                 className="form-control"
                 placeholder="Password"
                 id="password"
+                name="password"
+                value={user.password}
+                onChange={handleChange}
               />
             </div>
 
@@ -48,6 +82,9 @@ const Register = () => {
                 className="form-control"
                 placeholder="Confirm Password"
                 id="confirmPassword"
+                name="confirmPassword"
+                value={user.confirmPassword}
+                onChange={handleChange}
               />
             </div>
 
@@ -56,7 +93,13 @@ const Register = () => {
                 <div className="image"></div>
                 <div className="file">
                   <label htmlFor="image">Select Image</label>
-                  <input type="file" className="form-control" id="image" />
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="image"
+                    name="image"
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
             </div>
