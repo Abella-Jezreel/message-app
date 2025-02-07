@@ -4,7 +4,8 @@
   "description": "A real-time messaging application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack with WebSockets (Socket.IO) for real-time communication.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon backend/server.js",
+    "start": "node backend/server.js"
   },
   "repository": {
     "type": "git",
