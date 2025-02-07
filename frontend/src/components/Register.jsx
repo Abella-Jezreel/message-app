@@ -6,67 +6,69 @@ const Register = () => {
     <div className="register">
       <div className="card">
         <div className="card-header">
-          <div className="register">
-            <h3>Register</h3>
-          </div>
+          <h3>Register</h3>
         </div>
+
         <div className="card-body">
           <form>
             <div className="form-group">
-              <label htmlFor="username">Username:</label>
+              <label htmlFor="username">User Name</label>
               <input
                 type="text"
-                id="username"
                 className="form-control"
-                required
+                placeholder="User Name"
+                id="username"
               />
             </div>
+
             <div className="form-group">
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">Email</label>
               <input
                 type="email"
+                className="form-control"
+                placeholder="Email"
                 id="email"
-                className="form-control"
-                required
               />
             </div>
+
             <div className="form-group">
-              <label htmlFor="password">Password:</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
+                className="form-control"
+                placeholder="Password"
                 id="password"
-                className="form-control"
-                required
               />
             </div>
+
             <div className="form-group">
-              <label htmlFor="confirmPassword">Confirm Password:</label>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <input
                 type="password"
-                id="confirmPassword"
                 className="form-control"
-                required
+                placeholder="Confirm Password"
+                id="confirmPassword"
               />
             </div>
+
             <div className="form-group">
               <div className="file-image">
                 <div className="image"></div>
                 <div className="file">
                   <label htmlFor="image">Select Image</label>
-                  <input
-                    type="file"
-                    id="image"
-                    className="form-control"
-                    required
-                  />
+                  <input type="file" className="form-control" id="image" />
                 </div>
               </div>
             </div>
+
             <div className="form-group">
               <input type="submit" value="register" className="btn" />
             </div>
+
             <div className="form-group">
-              <span><Link to="/messenger/login">Login Your Account</Link></span>
+              <span>
+                <Link to="/messenger/login"> Login Your Account </Link>
+              </span>
             </div>
           </form>
         </div>
