@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../store/userReducer";
+// import { useDispatch } from "react-redux";
+// import { setUser } from "../store/userReducer";
 
 const Register = () => {
   const [user, setUserState] = useState({
@@ -12,7 +12,7 @@ const Register = () => {
     image: "",
   });
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,8 +24,19 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(setUser(user));
+    // dispatch(setUser(user));
+    console.log(user);
   };
+
+  const fileHandler = (e) => {
+    const {name, files} = e.target;
+    if (e.target.files.length !== 0) {
+      setUserState({
+        ...user,
+        [name]: files[0],
+      });
+    }
+  }
 
   return (
     <div className="register">
@@ -98,7 +109,7 @@ const Register = () => {
                     className="form-control"
                     id="image"
                     name="image"
-                    onChange={handleChange}
+                    onChange={fileHandler}
                   />
                 </div>
               </div>
