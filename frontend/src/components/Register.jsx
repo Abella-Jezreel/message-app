@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { setUser } from "../store/userReducer";
+import { useDispatch } from "react-redux";
+import { userRegister } from "../store/action/authAction";
 
 const Register = () => {
   const [user, setUserState] = useState({
@@ -11,8 +11,9 @@ const Register = () => {
     confirmPassword: "",
     image: "",
   });
+  const [loadImage, setLoadImage] = useState(null);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,19 +25,44 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(setUser(user));
-    console.log(user);
+    const { username, email, password, confirmPassword, image } = user;
+    if (
+      username === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPassword === ""
+    ) {
+      console.log("All fields are required");
+      return;
+    }
+    if (password !== confirmPassword) {
+      console.log("Password and Confirm Password must be same");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("image", image);
+
+    dispatch(userRegister(formData));
   };
 
   const fileHandler = (e) => {
-    const {name, files} = e.target;
-    if (e.target.files.length !== 0) {
-      setUserState({
-        ...user,
-        [name]: files[0],
-      });
+    const { name, files } = e.target;
+    if (files.length !== 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLoadImage(reader.result);
+        setUserState((prevState) => ({
+          ...prevState,
+          [name]: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
 
   return (
     <div className="register">
@@ -101,7 +127,11 @@ const Register = () => {
 
             <div className="form-group">
               <div className="file-image">
-                <div className="image"></div>
+                <div className="image">
+                  {loadImage ? (
+                    <img src={loadImage} alt="Selected Preview" />
+                  ) : null}
+                </div>
                 <div className="file">
                   <label htmlFor="image">Select Image</label>
                   <input
