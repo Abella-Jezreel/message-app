@@ -9,7 +9,7 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    image: "",
+    image: null,
   });
   const [loadImage, setLoadImage] = useState(null);
 
@@ -22,6 +22,8 @@ const Register = () => {
       [name]: value,
     });
   };
+
+  console.log(user, 'user');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,24 +45,24 @@ const Register = () => {
     formData.append("username", username);
     formData.append("email", email);
     formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
     formData.append("image", image);
+
+    console.log([...formData], 'formadata'); // Log the FormData content
 
     dispatch(userRegister(formData));
   };
 
   const fileHandler = (e) => {
     const { name, files } = e.target;
+    console.log(files);
     if (files.length !== 0) {
       const file = files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setLoadImage(reader.result);
-        setUserState((prevState) => ({
-          ...prevState,
-          [name]: reader.result,
-        }));
-      };
-      reader.readAsDataURL(file);
+      setLoadImage(URL.createObjectURL(file));
+      setUserState((prevState) => ({
+        ...prevState,
+        [name]: file,
+      }));
     }
   };
 
