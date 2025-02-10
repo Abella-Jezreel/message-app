@@ -26,17 +26,20 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, email, password, confirmPassword, image } = user;
+    const validationErrors = [];
     if (
       username === "" ||
       email === "" ||
       password === "" ||
       confirmPassword === ""
     ) {
-      console.log("All fields are required");
-      return;
+      validationErrors.push("All fields are required");
     }
     if (password !== confirmPassword) {
-      console.log("Password and Confirm Password must be same");
+      validationErrors.push("Password and Confirm Password must be same");
+    }
+    if (validationErrors.length > 0) {
+      dispatch({ type: "USER_REGISTER_FAILURE", payload: validationErrors });
       return;
     }
     const formData = new FormData();
