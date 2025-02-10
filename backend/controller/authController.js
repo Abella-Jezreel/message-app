@@ -2,6 +2,7 @@ import User from "../models/userModel.js";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import fs from "fs";
+import jwt from "jsonwebtoken";
 
 export const userRegister = async (req, res) => {
   try {
@@ -57,9 +58,28 @@ export const userRegister = async (req, res) => {
       password: await bcrypt.hash(password, 10),
       image,
     });
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        email: user.email,
+        username: user.username,
+        image: user.image,
+        registerTime: user.createdAt,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.TOKEN_EXPIRATION }, 
+      
+    );
+    user.token = token;
+    console.log(token, 'token');
+    console.log('Registration Successful');
+    const options = {
+      expires: new Date(Date.now() + process.env.COOKIE_EXPIRATION * 24 * 60 * 60 * 1000),
+    };
     await user.save();
-    res.status(201).json({
+    res.status(201).cookie('authToken', token, options).json({
       message: "User Registered Successfully",
+      token,
     });
   } catch (error) {
     return res.status(400).json({ error: error.message });

@@ -7,6 +7,7 @@ export const userRegister = (user) => async (dispatch) => {
       headers: {
         // "Content-Type": "application/json",
       },
+      withCredentials: true,
     };
 
     const response = await axios.post(

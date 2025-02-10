@@ -23,8 +23,6 @@ const Register = () => {
     });
   };
 
-  console.log(user, 'user');
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, email, password, confirmPassword, image } = user;
@@ -47,9 +45,6 @@ const Register = () => {
     formData.append("password", password);
     formData.append("confirmPassword", confirmPassword);
     formData.append("image", image);
-
-    console.log([...formData], 'formadata'); // Log the FormData content
-
     dispatch(userRegister(formData));
   };
 
