@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../store/action/authAction";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const { error, authenticate } = useSelector((state) => state.auth);
+  console.log(error, "errors");
+  console.log(authenticate, "authenticate");
   const [user, setUserState] = useState({
     username: "",
     email: "",
@@ -12,6 +16,14 @@ const Register = () => {
     image: null,
   });
   const [loadImage, setLoadImage] = useState(null);
+
+  useEffect(() => {
+    if (error && error.length > 0) {
+      error.forEach((err) => toast.error(err));
+    } else if (authenticate) {
+      toast.success("User Registered Successfully");
+    }
+  }, [error, authenticate]);
 
   const dispatch = useDispatch();
 
@@ -26,22 +38,6 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { username, email, password, confirmPassword, image } = user;
-    const validationErrors = [];
-    if (
-      username === "" ||
-      email === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
-      validationErrors.push("All fields are required");
-    }
-    if (password !== confirmPassword) {
-      validationErrors.push("Password and Confirm Password must be same");
-    }
-    if (validationErrors.length > 0) {
-      dispatch({ type: "USER_REGISTER_FAILURE", payload: validationErrors });
-      return;
-    }
     const formData = new FormData();
     formData.append("username", username);
     formData.append("email", email);
