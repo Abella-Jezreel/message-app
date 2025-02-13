@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import { REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_FAIL_SERVER, LOGOUT } from "../types/authTypes";
 
 const authState = {
   token: null,
@@ -33,7 +34,7 @@ if(getToken) {
 const authReducer = (state = authState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case "USER_REGISTER_SUCCESS":
+    case REGISTER_SUCCESS:
       const myInfo = tokenDecoded(payload.token);
       state = {
         authenticate: true,
@@ -43,7 +44,7 @@ const authReducer = (state = authState, action) => {
         myInfo: myInfo,
       };
       break;
-    case "USER_REGISTER_FAILURE":
+    case REGISTER_FAIL:
       state = {
         token: null,
         authenticate: false,
@@ -51,12 +52,20 @@ const authReducer = (state = authState, action) => {
         error: payload,
       };
       break;
-    case "USER_REGISTER_FAILURE_SERVER":
+    case REGISTER_FAIL_SERVER:
       state = {
         token: null,
         authenticate: false,
         loading: false,
         error: payload.errors,
+      };
+      break;
+    case LOGOUT:
+      state = {
+        token: null,
+        authenticate: false,
+        loading: false,
+        myInfo: "",
       };
       break;
     default:

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_FAIL_SERVER } from "../types/authTypes";
+import { REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_FAIL_SERVER, LOGOUT } from "../types/authTypes";
 
 
 export const userRegister = (user) => async (dispatch) => {
@@ -26,4 +26,9 @@ export const userRegister = (user) => async (dispatch) => {
       dispatch({ type: REGISTER_FAIL, payload: { errors: error.message }});
     }
   }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem("authToken");
+  dispatch({ type: LOGOUT });
 };
