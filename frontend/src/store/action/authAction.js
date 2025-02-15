@@ -1,5 +1,5 @@
 import axios from "axios";
-import { REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_FAIL_SERVER, LOGOUT } from "../types/authTypes";
+import { REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_FAIL_SERVER, LOGIN_SUCCESS, LOGIN_FAIL ,LOGOUT } from "../types/authTypes";
 
 
 export const userRegister = (user) => async (dispatch) => {
@@ -32,3 +32,31 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem("authToken");
   dispatch({ type: LOGOUT });
 };
+
+export const userLogin = (user) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
+
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/messenger/user-login`,
+      user,
+      config
+    );
+    console.log(response.data, "response");
+    const { token } = response.data;
+    console.log(token, "token");
+    localStorage.setItem("authToken", token);
+    console.log("Dispatching LOGIN_SUCCESS");
+    dispatch({ type: LOGIN_SUCCESS, payload: response.data });
+  } catch (error) {
+    if (error.response) {
+      dispatch({ type: LOGIN_FAIL, payload: error.response.data });
+    }
+  }
+};
+

@@ -1,5 +1,12 @@
 import { jwtDecode } from "jwt-decode";
-import { REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_FAIL_SERVER, LOGOUT } from "../types/authTypes";
+import {
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  REGISTER_FAIL_SERVER,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+} from "../types/authTypes";
 
 const authState = {
   token: null,
@@ -22,9 +29,9 @@ const tokenDecoded = (token) => {
 
 const getToken = localStorage.getItem("authToken");
 
-if(getToken) {
+if (getToken) {
   const myInfo = tokenDecoded(getToken);
-  if(myInfo) {
+  if (myInfo) {
     authState.authenticate = true;
     authState.loading = false;
     authState.myInfo = myInfo;
@@ -35,43 +42,60 @@ const authReducer = (state = authState, action) => {
   const { type, payload } = action;
   switch (type) {
     case REGISTER_SUCCESS:
-      const myInfo = tokenDecoded(payload.token);
-      state = {
+      const myInfoRegister = tokenDecoded(payload.token);
+      return {
+        ...state,
         authenticate: true,
         token: payload.token,
         message: payload.message,
         loading: false,
-        myInfo: myInfo,
+        myInfo: myInfoRegister,
       };
-      break;
+    case LOGIN_SUCCESS:
+      const myInfoLogin = tokenDecoded(payload.token);
+      return {
+        ...state,
+        authenticate: true,
+        token: payload.token,
+        message: payload.message,
+        loading: false,
+        myInfo: myInfoLogin,
+      };
     case REGISTER_FAIL:
-      state = {
+      return {
+        ...state,
         token: null,
         authenticate: false,
         loading: false,
         error: payload,
       };
-      break;
     case REGISTER_FAIL_SERVER:
-      state = {
+      return {
+        ...state,
         token: null,
         authenticate: false,
         loading: false,
         error: payload.errors,
       };
-      break;
     case LOGOUT:
-      state = {
+      return {
+        ...state,
         token: null,
         authenticate: false,
         loading: false,
         myInfo: "",
       };
-      break;
+    case LOGIN_FAIL:
+      return {
+        ...state,
+        token: null,
+        authenticate: false,
+        loading: false,
+        error: payload,
+      };
     default:
-      break;
+      return state;
   }
-  return state;
 };
 
 export default authReducer;
