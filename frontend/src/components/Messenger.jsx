@@ -3,7 +3,6 @@ import { FaEllipsisH, FaEdit, FaSistrix } from "react-icons/fa";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
-import Message from './Message';
 import Image2x2 from "../images/2x2.jpg";
 
 const Messenger = () => {
