@@ -41,7 +41,7 @@ if (getToken) {
 const authReducer = (state = authState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case REGISTER_SUCCESS:
+    case REGISTER_SUCCESS: {
       const myInfoRegister = tokenDecoded(payload.token);
       return {
         ...state,
@@ -51,7 +51,8 @@ const authReducer = (state = authState, action) => {
         loading: false,
         myInfo: myInfoRegister,
       };
-    case LOGIN_SUCCESS:
+    }
+    case LOGIN_SUCCESS: {
       const myInfoLogin = tokenDecoded(payload.token);
       return {
         ...state,
@@ -61,6 +62,7 @@ const authReducer = (state = authState, action) => {
         loading: false,
         myInfo: myInfoLogin,
       };
+    }
     case REGISTER_FAIL:
       return {
         ...state,

@@ -1,15 +1,33 @@
 import axios from "axios";
-import { FRIENDS_REQUEST, FRIENDS_SUCCESS, FRIENDS_FAIL } from "../types/authTypes";
+import {
+  FRIENDS_REQUEST,
+  FRIENDS_SUCCESS,
+  FRIENDS_FAIL,
+} from "../types/authTypes";
 
-export const getFriends = () => async (dispatch) => {
+export const getFriends = (email) => async (dispatch) => {
+  console.log("getFriends");
   try {
     dispatch({ type: FRIENDS_REQUEST });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    };
 
-    const { data } = await axios.get("/api/friends");
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/messenger/get-friends`,
+      email,
+      config
+    );
+
+    const friends = data.friends;
+    console.log(friends, "friends");
 
     dispatch({
       type: FRIENDS_SUCCESS,
-      payload: data,
+      payload: friends,
     });
   } catch (error) {
     dispatch({

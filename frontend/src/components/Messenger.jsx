@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaEllipsisH, FaEdit, FaSistrix } from "react-icons/fa";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
@@ -9,10 +9,11 @@ import { getFriends } from "../store/action/messengerAction";
 
 const Messenger = () => {
   const dispatch = useDispatch();
-
+  const { email } = useSelector((state) => state.auth.myInfo);
+  console.log(email);
   useEffect(() => {
-    dispatch(getFriends());
-  }, [dispatch]);
+    dispatch(getFriends(email));
+  }, [dispatch, email]);
 
   return (
     <div className="messenger">

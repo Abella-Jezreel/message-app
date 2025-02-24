@@ -44,6 +44,14 @@
       "react-hooks"
     ]
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  }, 
   "browserslist": {
     "production": [
       ">0.2%",

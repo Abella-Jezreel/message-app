@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/dataBase.js";
 import authRoute from "./routes/authRoute.js";
+import getFriends from "./routes/messengerRoutes.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -64,9 +65,10 @@ app.get("/", (req, res) => {
 });
 
 // Connect to MongoDB
-connectDB();
+connectDB(); 
 
 app.use("/api/messenger", authRoute);
+app.use("/api/messenger", getFriends);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

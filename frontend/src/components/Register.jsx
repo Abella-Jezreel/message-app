@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userRegister } from "../store/action/authAction";
@@ -27,7 +27,6 @@ const Register = () => {
       navigate("/messenger/login");
     }
   }, [error, authenticate, navigate]);
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
