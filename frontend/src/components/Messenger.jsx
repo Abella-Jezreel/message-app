@@ -10,6 +10,8 @@ import { getFriends } from "../store/action/messengerAction";
 const Messenger = () => {
   const dispatch = useDispatch();
   const { email } = useSelector((state) => state.auth.myInfo);
+  const { friends } = useSelector((state) => state.messengerFriends);
+  // console.log(friends, "friends");
   console.log(email);
   useEffect(() => {
     dispatch(getFriends(email));
@@ -59,40 +61,19 @@ const Messenger = () => {
             </div>
 
             <div className="friends">
-              <div className="hover-friend active">
-                <Friends />
-              </div>
-
-              <div className="hover-friend">
-                <Friends />
-              </div>
-
-              <div className="hover-friend">
-                <Friends />
-              </div>
-              <div className="hover-friend">
-                <Friends />
-              </div>
-              <div className="hover-friend">
-                <Friends />
-              </div>
-              <div className="hover-friend">
-                <Friends />
-              </div>
-              <div className="hover-friend">
-                <Friends />
-              </div>
-
-              <div className="hover-friend">
-                <Friends />
-              </div>
-
-              <div className="hover-friend">
-                <Friends />
-              </div>
-              <div className="hover-friend">
-                <Friends />
-              </div>
+              {friends && friends.length > 0 ? (
+                friends.map((friend) => (
+                  <div className="hover-friend active" key={friend._id}>
+                    <Friends
+                      key={friend._id}
+                      name={friend.username}
+                      image={friend.image.split("\\").pop()}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div>No friends available</div>
+              )}
             </div>
           </div>
         </div>
