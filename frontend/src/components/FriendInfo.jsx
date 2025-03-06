@@ -1,17 +1,19 @@
 import React from "react";
 import { FaCaretSquareDown } from "react-icons/fa";
 import Image2x2 from "../images/2x2.jpg";
-const FriendInfo = () => {
+import PropTypes from "prop-types";
+
+const FriendInfo = ({ image, name }) => {
   return (
     <div className="friend-info">
       <input type="checkbox" id="gallery" />
       <div className="image-name">
         <div className="image">
-          <img src={Image2x2} alt="" />
+          <img src={image} alt="" />
         </div>
         <div className="active-user">Active</div>
         <div className="name">
-          <h4>Kazi Ariyan </h4>
+          <h4>{name}</h4>
         </div>
       </div>
       <div className="others">
@@ -39,5 +41,10 @@ const FriendInfo = () => {
       </div>
     </div>
   );
+};
+
+FriendInfo.propTypes = {
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };
 export default FriendInfo;

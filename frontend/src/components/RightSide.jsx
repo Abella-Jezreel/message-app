@@ -1,11 +1,12 @@
 import React from "react";
 import { FaPhoneAlt, FaVideo, FaRocketchat } from "react-icons/fa";
-import Image2x2 from "../images/2x2.jpg";
 import MessageSend from "./MessageSend";
 import Message from "./Message";
 import FriendInfo from "./FriendInfo";
+import PropTypes from "prop-types";
 
-const RightSide = () => {
+const RightSide = ({ name, image }) => {
+  const imageUrl = `${process.env.REACT_APP_BACKEND_URL}/images/${image}`;
   return (
     <div className="col-9">
       <div className="right-side">
@@ -16,10 +17,10 @@ const RightSide = () => {
               <div className="header">
                 <div className="image-name">
                   <div className="image">
-                    <img src={Image2x2} alt="" />
+                    <img src={imageUrl} alt="" />
                   </div>
                   <div className="name">
-                    <h3> Kazi Ariyan </h3>
+                    <h3> {name} </h3>
                   </div>
                 </div>
                 <div className="icons">
@@ -42,11 +43,16 @@ const RightSide = () => {
             </div>
           </div>
           <div className="col-4">
-            User About Page <FriendInfo />
+            User About Page <FriendInfo image={imageUrl} name={name}/>
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+RightSide.propTypes = {
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };
 export default RightSide;

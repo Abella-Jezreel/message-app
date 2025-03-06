@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaEllipsisH, FaEdit, FaSistrix } from "react-icons/fa";
 import ActiveFriend from "./ActiveFriend";
@@ -10,12 +10,21 @@ const Messenger = () => {
   const dispatch = useDispatch();
   const { email, username, image } = useSelector((state) => state.auth.myInfo);
   const { friends } = useSelector((state) => state.messengerFriends);
-  const profileImageUrl = `${process.env.REACT_APP_BACKEND_URL}/images/${image.split("\\").pop()}`;
-  // console.log(friends, "friends");
+  const profileImageUrl = `${process.env.REACT_APP_BACKEND_URL}/images/${image
+    .split("\\")
+    .pop()}`;
+  const [currentFriend, setCurrentFriend] = useState(null);
   console.log(email);
+
+  const handleFriendClick = (friend) => {
+    setCurrentFriend(friend);
+  };
+
   useEffect(() => {
     dispatch(getFriends(email));
   }, [dispatch, email]);
+
+  console.log(currentFriend, "currentFriend");
 
   return (
     <div className="messenger">
@@ -63,7 +72,11 @@ const Messenger = () => {
             <div className="friends">
               {friends && friends.length > 0 ? (
                 friends.map((friend) => (
-                  <div className="hover-friend active" key={friend._id}>
+                  <div
+                    className="hover-friend active"
+                    key={friend._id}
+                    onClick={() => handleFriendClick(friend)}
+                  >
                     <Friends
                       key={friend._id}
                       name={friend.username}
@@ -77,7 +90,14 @@ const Messenger = () => {
             </div>
           </div>
         </div>
-        <RightSide />
+        {currentFriend ? (
+          <RightSide
+            name={currentFriend.username}
+            image={currentFriend.image.split("\\").pop()}
+          />
+        ) : (
+          "Please select a friend"
+        )}
       </div>
     </div>
   );
