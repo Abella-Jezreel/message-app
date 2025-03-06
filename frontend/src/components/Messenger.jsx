@@ -4,13 +4,13 @@ import { FaEllipsisH, FaEdit, FaSistrix } from "react-icons/fa";
 import ActiveFriend from "./ActiveFriend";
 import Friends from "./Friends";
 import RightSide from "./RightSide";
-import Image2x2 from "../images/2x2.jpg";
 import { getFriends } from "../store/action/messengerAction";
 
 const Messenger = () => {
   const dispatch = useDispatch();
-  const { email } = useSelector((state) => state.auth.myInfo);
+  const { email, username, image } = useSelector((state) => state.auth.myInfo);
   const { friends } = useSelector((state) => state.messengerFriends);
+  const profileImageUrl = `${process.env.REACT_APP_BACKEND_URL}/images/${image.split("\\").pop()}`;
   // console.log(friends, "friends");
   console.log(email);
   useEffect(() => {
@@ -25,10 +25,10 @@ const Messenger = () => {
             <div className="top">
               <div className="image-name">
                 <div className="image">
-                  <img src={Image2x2} alt="" />
+                  <img src={profileImageUrl} alt="" />
                 </div>
                 <div className="name">
-                  <h3> Hi Daddy Love </h3>
+                  <h3>{username}</h3>
                 </div>
               </div>
 
