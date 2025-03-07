@@ -6,7 +6,6 @@ import {
 } from "../types/authTypes";
 
 export const getFriends = (email) => async (dispatch) => {
-  console.log("getFriends");
   try {
     dispatch({ type: FRIENDS_REQUEST });
     const config = {
@@ -23,8 +22,6 @@ export const getFriends = (email) => async (dispatch) => {
     );
 
     const friends = data.friends;
-    console.log(friends, "friends");
-
     dispatch({
       type: FRIENDS_SUCCESS,
       payload: friends,

@@ -5,8 +5,9 @@ import {
   FaGift,
   FaPaperPlane,
 } from "react-icons/fa";
+import PropTypes from "prop-types";
 
-const MessageSend = () => {
+const MessageSend = ({ inputHandler, newMessage, sendMessage }) => {
   const emojis = [
     "😀",
     "",
@@ -62,6 +63,8 @@ const MessageSend = () => {
           id="message"
           placeholder="Aa"
           className="form-control"
+          value={newMessage}
+          onChange={inputHandler}
         />
 
         <div className="file hover-gift">
@@ -72,17 +75,25 @@ const MessageSend = () => {
         </div>
       </div>
 
-      <div className="file">❤</div>
+      <div className="file" onClick={sendMessage}>
+        ❤
+      </div>
 
       <div className="emoji-section">
         <div className="emoji">
-          {emojis.map((e) => (
-            <span>{e}</span>
+          {emojis.map((e, index) => (
+            <span key={index}>{e}</span>
           ))}
         </div>
       </div>
     </div>
   );
+};
+
+MessageSend.propTypes = {
+  inputHandler: PropTypes.func.isRequired,
+  newMessage: PropTypes.string.isRequired,
+  sendMessage: PropTypes.func.isRequired,
 };
 
 export default MessageSend;

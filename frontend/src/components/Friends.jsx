@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 const Friends = ({ name, image }) => {
   const { username } = useSelector((state) => state.auth.myInfo);
   const imageUrl = `${process.env.REACT_APP_BACKEND_URL}/images/${image}`;
-  console.log(username, "username");
-  console.log(imageUrl, "imageUrl");
   return (
     name !== username && (
       <div className="friend">

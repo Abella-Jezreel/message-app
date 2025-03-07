@@ -6,8 +6,6 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const { error, authenticate } = useSelector((state) => state.auth);
-  console.log(error, "errors");
-  console.log(authenticate, "authenticate");
   const [user, setUserState] = useState({
     username: "",
     email: "",
@@ -50,7 +48,6 @@ const Register = () => {
 
   const fileHandler = (e) => {
     const { name, files } = e.target;
-    console.log(files);
     if (files.length !== 0) {
       const file = files[0];
       setLoadImage(URL.createObjectURL(file));

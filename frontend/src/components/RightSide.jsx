@@ -5,7 +5,7 @@ import Message from "./Message";
 import FriendInfo from "./FriendInfo";
 import PropTypes from "prop-types";
 
-const RightSide = ({ name, image }) => {
+const RightSide = ({ name, image, inputHandler, newMessage, sendMessage }) => {
   const imageUrl = `${process.env.REACT_APP_BACKEND_URL}/images/${image}`;
   return (
     <div className="col-9">
@@ -39,11 +39,15 @@ const RightSide = ({ name, image }) => {
                 </div>
               </div>
               <Message />
-              <MessageSend />
+              <MessageSend
+                newMessage={newMessage}
+                inputHandler={inputHandler}
+                sendMessage={sendMessage}
+              />
             </div>
           </div>
           <div className="col-4">
-            User About Page <FriendInfo image={imageUrl} name={name}/>
+            User About Page <FriendInfo image={imageUrl} name={name} />
           </div>
         </div>
       </div>
@@ -54,5 +58,8 @@ const RightSide = ({ name, image }) => {
 RightSide.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  inputHandler: PropTypes.func.isRequired,
+  newMessage: PropTypes.string.isRequired,
+  sendMessage: PropTypes.func.isRequired,
 };
 export default RightSide;

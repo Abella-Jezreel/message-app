@@ -14,17 +14,33 @@ const Messenger = () => {
     .split("\\")
     .pop()}`;
   const [currentFriend, setCurrentFriend] = useState(null);
-  console.log(email);
+  const [newMessage, setNewMessage] = useState("");
 
   const handleFriendClick = (friend) => {
     setCurrentFriend(friend);
+  };
+
+  const inputHandler = (event) => {
+    setNewMessage(event.target.value);
+  };
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    console.log("newMessage", newMessage);
   };
 
   useEffect(() => {
     dispatch(getFriends(email));
   }, [dispatch, email]);
 
-  console.log(currentFriend, "currentFriend");
+  useEffect(() => {
+    if (friends && friends.length > 0) {
+      const filteredFriends = friends.filter((friend) => friend.username !== username);
+      setCurrentFriend(filteredFriends[0] || null);
+    } else {
+      setCurrentFriend(null);
+    }
+  }, [friends, username]);
 
   return (
     <div className="messenger">
@@ -94,6 +110,9 @@ const Messenger = () => {
           <RightSide
             name={currentFriend.username}
             image={currentFriend.image.split("\\").pop()}
+            inputHandler={inputHandler}
+            newMessage={newMessage}
+            sendMessage={sendMessage}
           />
         ) : (
           "Please select a friend"

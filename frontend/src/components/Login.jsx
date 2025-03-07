@@ -14,8 +14,6 @@ const Login = () => {
     password: "",
   });
 
-  console.log(error.errors, "error");
-  console.log(authenticate, "authenticate ");
   useEffect(() => {
     if (error.errors && error.errors.length > 0) {
       error.errors.forEach((err) => toast.error(err));
@@ -96,8 +94,7 @@ const Login = () => {
             <div className="form-group">
               <span>
                 <Link to="/messenger/register" onClick={handleLogout}>
-                  {" "}
-                  Don't have any Account{" "}
+                  Dont have any Account
                 </Link>
               </span>
             </div>

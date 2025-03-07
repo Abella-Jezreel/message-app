@@ -3,7 +3,6 @@ import { REGISTER_SUCCESS, REGISTER_FAIL, REGISTER_FAIL_SERVER, LOGIN_SUCCESS, L
 
 
 export const userRegister = (user) => async (dispatch) => {
-  console.log(user, "userDispatch");
   try {
     const config = {
       headers: {
@@ -47,11 +46,8 @@ export const userLogin = (user) => async (dispatch) => {
       user,
       config
     );
-    console.log(response.data, "response");
     const { token } = response.data;
-    console.log(token, "token");
     localStorage.setItem("authToken", token);
-    console.log("Dispatching LOGIN_SUCCESS");
     dispatch({ type: LOGIN_SUCCESS, payload: response.data });
   } catch (error) {
     if (error.response) {
